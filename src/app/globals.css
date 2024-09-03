@@ -1,3 +1,68 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: 'DxLactos';
+    src: url("../../public/fonts/DxLactos-Regular.otf");
+}
+
+.tasksOracion{
+    font-family: 'DxLactos';
+
+
+
+}
+
+  * {
+    scrollbar-width: none;
+    scrollbar-color: #f0b000 #ffffff;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #f0b000;
+    border-radius: 20px;
+    border: 5px none #ffffff;
+  }
+
+  .button {
+  border: 1px solid #000;
+  background: transparent;
+  margin: 5px 5px;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.button:hover {
+  box-shadow: 3px 3px 0px 0px rgba(0, 0, 0);
+}
+
+ .buttonAdd {
+  border: 1px solid #000;
+  background: #aecd68;
+  margin: 5px 5px;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.buttonAdd:hover {
+  box-shadow: 3px 3px 0px 0px rgba(0, 0, 0);
+}
+
+.active {
+  background-color: #aecd68;
+  color: #000000;
+}
