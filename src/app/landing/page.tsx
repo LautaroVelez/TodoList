@@ -70,7 +70,7 @@ export default function Landing() {
         setListOfTasks(ListOfTasks.filter((task) => task.id !== id))
     }
 
-    function handleFilterButtonClick(type) {
+    function handleFilterButtonClick(type:string) {
         switch (type) {
             case "completed":
                 setFilterList(ListOfTasks.filter(task => task.type === "completed"))
