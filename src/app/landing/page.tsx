@@ -16,6 +16,7 @@ import Image from 'next/image'
 import illustration from '../../../public/illustration.png'
 import plant from '../../../public/plant.png'
 import {FaRegTrashAlt} from "react-icons/fa";
+import {AnimatePresence, motion} from "framer-motion";
 
 
 export default function Landing() {
@@ -39,7 +40,7 @@ export default function Landing() {
     function createTask(): Task {
         return {
             des: descTask,
-            id: ListOfTasks.length + 1,
+            id: (new Date()).getTime(),
             type: "uncompleted"
         };
     }
@@ -88,7 +89,22 @@ export default function Landing() {
 
     useEffect(() => {
         setFilterList(ListOfTasks)
+
+        if (ListOfTasks.length > 0) {
+            localStorage.setItem('tasks', JSON.stringify(ListOfTasks));
+        }
+
     }, [ListOfTasks]);
+
+    useEffect(() => {
+        const storedTasks = localStorage.getItem('tasks');
+        if (storedTasks) {
+            const parsedTasks = JSON.parse(storedTasks);
+            setFilterList(parsedTasks);
+            setListOfTasks(parsedTasks);
+        }
+    }, []);
+
 
     return (
         <>
@@ -101,21 +117,23 @@ export default function Landing() {
                         shadow="md">
 
                         <div className="w-full">
-                            <h1 className="text-white drop-shadow-2xl text-center underline text-8xl tasksOracion">My Tasks</h1>
+                            <h1 className="text-white drop-shadow-2xl text-center underline text-8xl tasksOracion">My
+                                Tasks</h1>
                             <div className={'flex w-full justify-center my-3'}>
 
 
                                 {filters.map((type, index) => (
                                     <button
                                         onClick={() => handleFilterButtonClick(type)}
-                                        className={`button first-letter:uppercase ${selectedType === type? "active" : ""}`}
+                                        className={`button first-letter:uppercase ${selectedType === type ? "active" : ""}`}
                                         key={index}>{type}</button>
                                 ))}
 
 
                             </div>
                             <form onSubmit={HandleAddTask}>
-                                <div className="flex w-full justify-between items-center">
+
+                                <div className="flex w-full justify-between items-center transition">
                                     <Input placeholder="Add a task" value={descTask} color={'default'}
                                            radius={'sm'}
                                            className="w-[70%] font-bold first-letter:uppercase" required
@@ -125,22 +143,24 @@ export default function Landing() {
                                             isIconOnly color="secondary"
                                             endContent={<IoMdAdd className={'size-7 text-black'}/>}></Button>
                                 </div>
+
                             </form>
                         </div>
 
 
                         <div className="h-[320px] mt-2">
-                            <div className="relative h-full overflow-y-auto">
-                                {filterList.map((task, index) => {
+                            <div className="relative h-full overflow-y-auto overflow-x-hidden">
 
+                                {filterList.map((task, index) => {
                                     return (
+
                                         <div key={task.id}
-                                             className={` ${task.type === "completed" ? "bg-[#E6B78F61]" : "bg-[#e6b78f]"} p-4 flex justify-between rounded-xl mt-3`}>
+                                             className={` ${task.type === "completed" ? "bg-[#E6B78F61]" : "bg-[#e6b78f]"} p-4 flex animate-appearance-in items-center justify-between rounded-xl mt-3`}>
                                             <Checkbox color="success" onChange={() => {
                                                 handleType(task.id)
 
                                             }}
-                                                        isSelected={task.type === "completed"}
+                                                      isSelected={task.type === "completed"}
                                                       lineThrough
                                                       classNames={{label: "w-full text-[#71432D]  font-bold pl-2"}}>
                                                 <p
@@ -150,19 +170,22 @@ export default function Landing() {
                                                 onClick={() => hanldeDelete(task.id)}><FaRegTrashAlt
                                                 className={'text-[#e8e8e8] hover:text-red-600 transition'}/></button></span>
                                         </div>
+
+
                                     )
                                 })}
+
                             </div>
                         </div>
                     </Card>
 
                     <div className="absolute bottom-0 right-0">
                         <Image src={illustration} alt={'illustration'} width={300} height={200} priority
-                               className="object-cover md:w-[15vw] w-[20vw]"/>
+                               className="object-cover  md:block hidden"/>
                     </div>
                     <div className="absolute bottom-0 left-0">
                         <Image src={plant} alt={'plant'} width={200} height={200} priority
-                               className="object-cover md:w-[10vw] w-[20vw]"/>
+                               className="object-cover  md:block hidden"/>
                     </div>
 
                 </div>

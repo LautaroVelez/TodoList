@@ -14,9 +14,11 @@
 
 }
 
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
   * {
-    scrollbar-width: none;
-    scrollbar-color: #f0b000 #ffffff;
+    scrollbar-width: thin;
+    scrollbar-color: #fcb066 #fca95d;
   }
 
   /* Chrome, Edge, and Safari */
@@ -25,15 +27,14 @@
   }
 
   *::-webkit-scrollbar-track {
-    background: #ffffff;
+    background: #fcb066;
   }
 
   *::-webkit-scrollbar-thumb {
-    background-color: #f0b000;
-    border-radius: 20px;
-    border: 5px none #ffffff;
+    background-color: #fcb066;
+    border-radius: 10px;
+    border: 2px dashed #ffffff;
   }
-
   .button {
   border: 1px solid #000;
   background: transparent;
@@ -52,7 +53,7 @@
   border: 1px solid #000;
   background: #aecd68;
   margin: 5px 5px;
-  border-radius: 5px;
+
   padding: 5px 10px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
@@ -66,3 +67,4 @@
   background-color: #aecd68;
   color: #000000;
 }
+
